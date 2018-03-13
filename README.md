@@ -10,14 +10,14 @@ Forked from [`immutablepatch`](https://github.com/intelie/immutable-js-patch) wh
 You may get the module via npm:
 
 ```
-npm install immutable-patch
+npm install @javier.alejandro.castro/immutable-patch
 ```
 
 And apply JSON patches to an immutable JSON object:
 
 ```js
 var Immutable = require('immutable');
-var patch = require('immutable-patch');
+var patch = require('@javier.alejandro.castro/immutable-patch');
 
 var list = Immutable.fromJS([1, 2, [3, 4]]);
 var ops = Immutable.fromJS([
