@@ -1,6 +1,6 @@
 {
-  "name": "immutablepatch",
-  "version": "0.4.2",
+  "name": "immutable-patch",
+  "version": "0.1.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -17,17 +17,20 @@
     "diff",
     "jsondiff"
   ],
-  "author": "Intelie",
+  "author": [
+    "Javier Castro <javier.alejandro.castro@gmail.com>",
+    "Intelie"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/intelie/immutable-js-patch.git"
+    "url": "http://github.com/jacargentina/immutable-patch.git"
   },
   "devDependencies": {
     "gulp": "^3.8.9",
     "gulp-mocha": "^1.1.1",
     "gulp-util": "^3.0.1",
-    "immutablediff": "^0.3.2",
+    "immutable-diff": "^0.1.1",
     "jscheck": "^0.2.0"
   },
   "dependencies": {

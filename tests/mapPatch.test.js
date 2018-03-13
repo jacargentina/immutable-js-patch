@@ -17,7 +17,7 @@ describe('Map patch', function() {
   it('adds missing value in empty map', function() {
     var map = Immutable.Map();
     var ops = Immutable.fromJS([
-      {op: 'add', path: '/a', value: 1}
+      {op: 'add', path: ['a'], value: 1}
     ]);
 
     var result = patch(map, ops);
@@ -29,7 +29,7 @@ describe('Map patch', function() {
   it('adds missing value in map', function() {
     var map = Immutable.Map({a: 1});
     var ops = Immutable.fromJS([
-      {op: 'add', path: '/b', value: 2}
+      {op: 'add', path: ['b'], value: 2}
     ]);
 
     var result = patch(map, ops);
@@ -41,7 +41,7 @@ describe('Map patch', function() {
   it('replaces value in map', function() {
     var map = Immutable.Map({a: 1, b: 1});
     var ops = Immutable.fromJS([
-      {op: 'replace', path: '/b', value: 2}
+      {op: 'replace', path: ['b'], value: 2}
     ]);
 
     var result = patch(map, ops);
@@ -53,7 +53,7 @@ describe('Map patch', function() {
   it('removes value in map', function() {
     var map = Immutable.Map({a: 1, b: 2});
     var ops = Immutable.fromJS([
-      {op: 'remove', path: '/b'}
+      {op: 'remove', path: ['b']}
     ]);
 
     var result = patch(map, ops);
@@ -66,7 +66,7 @@ describe('Map patch', function() {
     it('adds missing value in nested map', function() {
       var map = Immutable.fromJS({a: 1, b: {c: 3}});
       var ops = Immutable.fromJS([
-        {op: 'add', path: '/b/d', value: 4}
+        {op: 'add', path: ['b', 'd'], value: 4}
       ]);
 
       var result = patch(map, ops);
@@ -78,7 +78,7 @@ describe('Map patch', function() {
     it('creates nested map', function() {
       var map = Immutable.fromJS({a: 1});
       var ops = Immutable.fromJS([
-        {op: 'add', path: '/b/c', value: 2}
+        {op: 'add', path: ['b','c'], value: 2}
       ]);
 
       var result = patch(map, ops);
@@ -90,7 +90,7 @@ describe('Map patch', function() {
     it('replaces value in nested map', function() {
       var map = Immutable.fromJS({a: 1, b: {c: 3}});
       var ops = Immutable.fromJS([
-        {op: 'add', path: '/b/c', value: 4}
+        {op: 'add', path: ['b','c'], value: 4}
       ]);
 
       var result = patch(map, ops);
@@ -102,7 +102,7 @@ describe('Map patch', function() {
     it('removes value in nested map', function() {
       var map = Immutable.fromJS({a: 1, b: {c: 3, d: 4}});
       var ops = Immutable.fromJS([
-        {op: 'remove', path: '/b/d'}
+        {op: 'remove', path: ['b','d']}
       ]);
 
       var result = patch(map, ops);
@@ -112,49 +112,11 @@ describe('Map patch', function() {
     });
   });
 
-  describe('escaped paths', function() {
-    it('add unescaped path', function() {
-      var map = Immutable.fromJS({'a': 1, 'b': {'c': 3}});
-      var ops = Immutable.fromJS([
-        {op: 'add', path: '/b/prop~1prop', value: 4}
-      ]);
-
-      var expected = Immutable.fromJS({'a': 1, 'b': {'c': 3, 'prop/prop': 4}});
-      var result = patch(map, ops);
-
-      assert.ok(Immutable.is(result, expected));
-    });
-
-    it('replaces unescaped path', function() {
-      var map = Immutable.fromJS({'a': 1, 'b': {'c': 3, 'prop/prop': 4}});
-      var ops = Immutable.fromJS([
-        {op: 'replace', path: '/b/prop~1prop', value: 10}
-      ]);
-
-      var expected = Immutable.fromJS({'a': 1, 'b': {'c': 3, 'prop/prop': 10}});
-      var result = patch(map, ops);
-
-      assert.ok(Immutable.is(result, expected));
-    });
-
-    it('removes unescaped path', function() {
-      var map = Immutable.fromJS({'a': 1, 'b': {'c': 3, 'prop/prop': 4}});
-      var ops = Immutable.fromJS([
-        {op: 'remove', path: '/b/prop~1prop'}
-      ]);
-
-      var expected = Immutable.fromJS({'a': 1, 'b': {'c': 3}});
-      var result = patch(map, ops);
-
-      assert.ok(Immutable.is(result, expected));
-    });
-  });
-
   describe('patch nested sequences', function() {
     it('adds missing value in nested sequence', function() {
       var map = Immutable.fromJS({a: 1, b: [1,2,3]});
       var ops = Immutable.fromJS([
-        {op: 'add', path: '/b/3', value: 4}
+        {op: 'add', path: ['b','3'], value: 4}
       ]);
 
       var result = patch(map, ops);
@@ -166,7 +128,7 @@ describe('Map patch', function() {
     it('adds nested sequence', function() {
       var map = Immutable.fromJS({a: 1});
       var ops = Immutable.fromJS([
-        {op: 'add', path: '/b', value: Immutable.List([1])}
+        {op: 'add', path: ['b'], value: Immutable.List([1])}
       ]);
 
       var result = patch(map, ops);
@@ -178,7 +140,7 @@ describe('Map patch', function() {
     it('replaces value in nested sequence', function() {
       var map = Immutable.fromJS({a: 1, b: [1,2,3]});
       var ops = Immutable.fromJS([
-        {op: 'replace', path: '/b/2', value: 4}
+        {op: 'replace', path: ['b','2'], value: 4}
       ]);
 
       var result = patch(map, ops);
@@ -190,7 +152,7 @@ describe('Map patch', function() {
     it('removes value in nested sequence', function() {
       var map = Immutable.fromJS({a: 1, b: [1,2,3]});
       var ops = Immutable.fromJS([
-        {op: 'remove', path: '/b/2'}
+        {op: 'remove', path: ['b','2']}
       ]);
 
       var result = patch(map, ops);
@@ -204,8 +166,8 @@ describe('Map patch', function() {
     it('replaces shallow value', function() {
       var a = Immutable.fromJS({"role":"user","store":[]})
       var ops = Immutable.fromJS([
-        {"op":"replace","path":"/role","value":"admin"},
-        {"op":"replace","path":"/store","value":2}
+        {"op":"replace","path":["role"],"value":"admin"},
+        {"op":"replace","path":["store"],"value":2}
       ]);
 
       var result = patch(a, ops);
