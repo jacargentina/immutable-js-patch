@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/jacargentina/immutable-patch.git"
+    "url": "http://github.com/jacargentina/immutable-js-patch.git"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
